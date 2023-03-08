@@ -41,7 +41,7 @@ const FruitItem = ({children, onDeleteButtonClick}) => {
   return (
     <li className='fruit-item'>
       <div onClick={onDeleteButtonClick} className='fruit-item-delete'>x</div>
-      <div className='fruit-item-name'>{children}</div>
+      <div className='fruit-item-name'><div className='fruit-item-name-text'>{children}</div></div>
     </li>
   )
 }

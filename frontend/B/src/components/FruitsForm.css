@@ -58,8 +58,12 @@
 
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  overflow: hidden;
+}
+
+.fruit-item-name-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 }
 
