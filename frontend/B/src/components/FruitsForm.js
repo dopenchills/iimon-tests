@@ -3,6 +3,7 @@ import './FruitsForm.css';
 
 const FruitInput = ({onFruitAddition}) => {
   const [inputText, setInputText] = useState("");
+  const [isComposing, setIsComposing] = useState(false);
 
   const onTextChange = e => {
     setInputText(e.target.value);
@@ -15,9 +16,22 @@ const FruitInput = ({onFruitAddition}) => {
     }
   }
 
+  const onKeyDownInInput = e => {
+    if (e.key === "Enter" && !isComposing) {
+      onAddButtonClick()
+    }
+  }
+
   return (
     <div className='fruit-input'>
-      <input type="text" value={inputText} onChange={onTextChange} className='fruit-input-text' />
+      <input
+        type="text"
+        value={inputText}
+        onChange={onTextChange}
+        onKeyDown={onKeyDownInInput}
+        onCompositionStart={() => {setIsComposing(true)}}
+        onCompositionEnd={() => {setIsComposing(false)}}
+        className='fruit-input-text' />
       <button onClick={onAddButtonClick} className='fruit-input-button'>追加</button>
     </div>
   )
