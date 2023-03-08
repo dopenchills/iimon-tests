@@ -39,18 +39,26 @@
 }
 
 .fruit-item-delete {
+  min-width: 50px;
   width: 50px;
   height: 100%;
   text-align: center;
   background-color: navy;
   color: white;
   line-height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fruit-item-name {
   height: 100%;
-  line-height: 50px;
   padding-left: 20px;
+
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
 /* FruitItemList */
