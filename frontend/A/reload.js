@@ -13,6 +13,5 @@ const reload = () => {
   }).then(json => {
     const response = json;
     text_element.textContent = response.fact;
-    console.log(response);
   })
 };
