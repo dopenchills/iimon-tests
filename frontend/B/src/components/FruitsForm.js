@@ -74,7 +74,7 @@ const FruitsForm = ({className}) => {
   }
 
   return (
-    <div className={"fruits-form" + " " + className}>
+    <div className={`fruits-form ${className}`}>
       <FruitInput onFruitAddition={onFruitAddition} />
       <FruitItemList fruits={fruits} setFruits={setFruits} />
     </div>
