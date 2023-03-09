@@ -1,0 +1,21 @@
+.fullFruitsList {
+  display: flex;
+  flex-direction: row;
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  padding-left: 0;
+}
+
+.item {
+  list-style: none;
+}
+
+.button {
+
+}
