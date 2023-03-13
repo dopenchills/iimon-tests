@@ -22,24 +22,31 @@ def index(request: HttpRequest):
 def login(request: HttpRequest):
     if request.method == "POST":
         form = LoginForm(request.POST)
-        if form.is_valid():
-            authenticated_user = authenticate(
+        if not form.is_valid():
+            return render(
                 request,
-                username=request.POST["username"],
-                password=request.POST["password"]
+                'login.html',
+                context={
+                    "form": LoginForm(request.POST)
+                }
             )
 
-            if authenticated_user is not None:
-                auth_login(request, authenticated_user)
-                return redirect("index")
-            else:
-                return render(
-                    request,
-                    'login.html',
-                    context={
-                        "form": LoginForm(request.POST)
-                    }
-                )
+        authenticated_user = authenticate(
+            request,
+            username=request.POST["username"],
+            password=request.POST["password"]
+        )
+        if authenticated_user is not None:
+            auth_login(request, authenticated_user)
+            return redirect("index")
+        else:
+            return render(
+                request,
+                'login.html',
+                context={
+                    "form": LoginForm(request.POST)
+                }
+            )
     else:
         return render(
             request,
@@ -49,7 +56,6 @@ def login(request: HttpRequest):
             }
         )
 
-
 def logout(request: HttpRequest):
     auth_logout(request)
     return redirect("index")
@@ -57,31 +63,30 @@ def logout(request: HttpRequest):
 def signin(request: HttpRequest):
     if request.method == "POST":
         form = SigninForm(request.POST)
-        if form.is_valid():
-            User.objects.create_user(
-                username=request.POST["username"],
-                email=request.POST["email"],
-                password=request.POST["password"]
-            )
-
-            authenticated_user = authenticate(
+        if not form.is_valid():
+            return render(
                 request,
-                username=request.POST["username"],
-                password=request.POST["password"]
+                'signin.html',
+                context={
+                    "form": SigninForm(request.POST)
+                }
             )
 
-            if authenticated_user is not None:
-                auth_login(request, authenticated_user)
-                return redirect("index")
-            else:
-                return render(
-                    request,
-                    'signin.html',
-                    context={
-                        "form": SigninForm(request.POST)
-                    }
-                )
+        User.objects.create_user(
+            username=request.POST["username"],
+            email=request.POST["email"],
+            password=request.POST["password"]
+        )
 
+        authenticated_user = authenticate(
+            request,
+            username=request.POST["username"],
+            password=request.POST["password"]
+        )
+
+        if authenticated_user is not None:
+            auth_login(request, authenticated_user)
+            return redirect("index")
         else:
             return render(
                 request,
