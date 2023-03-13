@@ -14,7 +14,7 @@
   <body>
     <form action="/signin/" method="post">
       {% csrf_token %}
-      {{ form.as_ul }}
+      {{ form.as_p }}
       <input type="submit" value="登録" />
     </form>
   </body>
