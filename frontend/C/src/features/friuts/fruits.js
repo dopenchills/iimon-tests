@@ -35,9 +35,9 @@ export const RightList = () => {
   )
 }
 
-export const FullFruitsList = () => {
+export const FullFruitsList = ({className}) => {
   return (
-    <div className={styles.fullFruitsList}>
+    <div className={`${styles.fullFruitsList} ${className}`}>
       <LeftList />
       <RightList />
     </div>

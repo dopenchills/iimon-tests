@@ -5,9 +5,9 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <FullFruitsList />
-      </header>
+      <div className='fruit-list-container'>
+        <FullFruitsList className="fruit-list" />
+      </div>
     </div>
   );
 }
