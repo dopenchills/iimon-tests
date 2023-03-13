@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from .models import Post
 
-from .forms import LoginForm
+from .forms import LoginForm, SigninForm
 
 def index(request: HttpRequest):
     all_posts = Post.objects.select_related("user").all()
@@ -20,7 +20,35 @@ def index(request: HttpRequest):
     )
 
 def login(request: HttpRequest):
-    pass
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            authenticated_user = authenticate(
+                request,
+                username=request.POST["username"],
+                password=request.POST["password"]
+            )
+
+            if authenticated_user is not None:
+                auth_login(request, authenticated_user)
+                return redirect("index")
+            else:
+                return render(
+                    request,
+                    'login.html',
+                    context={
+                        "form": LoginForm(request.POST)
+                    }
+                )
+    else:
+        return render(
+            request,
+            'login.html',
+            context={
+                "form": LoginForm()
+            }
+        )
+
 
 def logout(request: HttpRequest):
     auth_logout(request)
@@ -28,7 +56,7 @@ def logout(request: HttpRequest):
 
 def signin(request: HttpRequest):
     if request.method == "POST":
-        form = LoginForm(request.POST)
+        form = SigninForm(request.POST)
         if form.is_valid():
             User.objects.create_user(
                 username=request.POST["username"],
@@ -50,7 +78,7 @@ def signin(request: HttpRequest):
                     request,
                     'signin.html',
                     context={
-                        "form": LoginForm(request.POST)
+                        "form": SigninForm(request.POST)
                     }
                 )
 
@@ -59,7 +87,7 @@ def signin(request: HttpRequest):
                 request,
                 'signin.html',
                 context={
-                    "form": LoginForm(request.POST)
+                    "form": SigninForm(request.POST)
                 }
             )
 
@@ -68,7 +96,7 @@ def signin(request: HttpRequest):
             request,
             'signin.html',
             context={
-                "form": LoginForm()
+                "form": SigninForm()
             }
         )
 
