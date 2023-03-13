@@ -1,6 +1,6 @@
 from django.http import HttpRequest
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 from django.contrib.auth.models import User
 from .models import Post
@@ -21,6 +21,10 @@ def index(request: HttpRequest):
 
 def login(request: HttpRequest):
     pass
+
+def logout(request: HttpRequest):
+    auth_logout(request)
+    return redirect("index")
 
 def signin(request: HttpRequest):
     if request.method == "POST":
