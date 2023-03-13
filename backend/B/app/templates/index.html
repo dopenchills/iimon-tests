@@ -7,6 +7,9 @@
   <title>backend/B</title>
 </head>
 <body>
+  {% if user.is_authenticated %}
+    Hi {{ user }}
+  {% endif %}
   <ul>
     {% for post in all_posts %}
       <li>{{ post.user }} : {{ post.content }}</li>
