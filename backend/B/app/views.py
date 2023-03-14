@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.models import User
 from .models import Post
 
-from .forms import LoginForm, SigninForm, PostForm
+from .forms import LoginForm, SignupForm, PostForm
 
 def index(request: HttpRequest):
     all_posts = Post.objects.select_related("user").all()
@@ -61,15 +61,15 @@ def logout(request: HttpRequest):
     auth_logout(request)
     return redirect("index")
 
-def signin(request: HttpRequest):
+def signup(request: HttpRequest):
     if request.method == "POST":
-        form = SigninForm(request.POST)
+        form = SignupForm(request.POST)
         if not form.is_valid():
             return render(
                 request,
                 'signin.html',
                 context={
-                    "form": SigninForm(request.POST)
+                    "form": SignupForm(request.POST)
                 }
             )
 
@@ -93,7 +93,7 @@ def signin(request: HttpRequest):
                 request,
                 'signin.html',
                 context={
-                    "form": SigninForm(request.POST)
+                    "form": SignupForm(request.POST)
                 }
             )
 
@@ -102,7 +102,7 @@ def signin(request: HttpRequest):
             request,
             'signin.html',
             context={
-                "form": SigninForm()
+                "form": SignupForm()
             }
         )
 
